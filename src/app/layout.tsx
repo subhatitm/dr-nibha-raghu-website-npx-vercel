@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { Inter, Poppins } from "next/font/google";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 import "./globals.css";
 
 export const metadataBase = new URL("https://drnibharaghu.com");
@@ -169,6 +170,7 @@ export default function RootLayout({
       </head>
       <body className="min-h-full flex flex-col bg-background text-foreground">
         {children}
+        <SpeedInsights />
       </body>
     </html>
   );
