@@ -1,0 +1,12 @@
+# Robots.txt for Dr. Nibha Raghu Website
+User-agent: *
+Allow: /
+
+# Sitemap
+Sitemap: https://drnibharaghu.com/sitemap.xml
+
+# Disallow private/admin areas
+Disallow: /api/
+Disallow: /_next/
+Disallow: /static/
+Disallow: /*.json$
