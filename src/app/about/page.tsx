@@ -1,6 +1,5 @@
 "use client";
 
-import { useState } from "react";
 import ScrollReveal from "@/components/ui/ScrollReveal";
 
 const qualifications = [
@@ -21,8 +20,6 @@ const expertise = [
 ];
 
 export default function AboutContent() {
-  const [activeTab, setActiveTab] = useState(0);
-
   return (
     <section className="py-16 lg:py-24" aria-labelledby="about-heading">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -93,7 +90,7 @@ export default function AboutContent() {
                   <p>
                     Dr. Nibha Raghu is a highly accomplished ENT (Ear, Nose & Throat) Head and Neck Surgeon
                     with over 15 years of clinical experience. She currently practices at Cytecare Hospital,
-                    Bengaluru's premier cancer and surgical care center, where she leads the ENT and Head & Neck
+                    Bengaluru&apos;s premier cancer and surgical care center, where she leads the ENT and Head & Neck
                     Surgery department.
                   </p>
                   <p>
@@ -168,7 +165,7 @@ export default function AboutContent() {
               Experience Compassionate, Expert ENT Care
             </h2>
             <p className="text-foreground/70 mb-8 max-w-2xl mx-auto leading-relaxed">
-              Whether you're dealing with a chronic sinus issue, hearing concerns, or need specialized head & neck surgery, Dr. Raghu and her team are here to help.
+              Whether you&apos;re dealing with a chronic sinus issue, hearing concerns, or need specialized head & neck surgery, Dr. Raghu and her team are here to help.
             </p>
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
               <a

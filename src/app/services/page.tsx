@@ -148,7 +148,7 @@ export default function ServicesContent() {
 
           <ScrollReveal delay={100} animation="slide-up">
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-16" role="tablist" aria-label="Service categories">
-              {services.map((service, index) => (
+              {services.map((service) => (
                 <article
                   key={service.id}
                   role="tab"
@@ -258,10 +258,10 @@ export default function ServicesContent() {
             <ScrollReveal delay={200} animation="slide-up">
               <div className="glass-card rounded-2xl p-8 lg:p-12 text-center border border-primary/20">
                 <h2 className="font-display text-2xl lg:text-3xl font-bold text-foreground mb-4">
-                  Can't Find Your Condition?
+                  Can&apos;t Find Your Condition?
                 </h2>
                 <p className="text-foreground/70 mb-8 max-w-2xl mx-auto leading-relaxed">
-                  Dr. Raghu treats a wide range of ENT and head & neck conditions beyond what's listed above. Contact us to discuss your specific concerns.
+                  Dr. Raghu treats a wide range of ENT and head & neck conditions beyond what&apos;s listed above. Contact us to discuss your specific concerns.
                 </p>
                 <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
                   <a

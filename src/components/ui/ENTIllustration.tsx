@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 
 export default function ENTIllustration({
   className = "",
@@ -12,8 +12,6 @@ export default function ENTIllustration({
   animate?: boolean;
 }) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
-  const [width, setWidth] = useState(size);
-  const [height, setHeight] = useState(size);
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -23,10 +21,10 @@ export default function ENTIllustration({
     if (!ctx) return;
 
     const dpr = window.devicePixelRatio || 1;
-    canvas.width = width * dpr;
-    canvas.height = height * dpr;
-    canvas.style.width = `${width}px`;
-    canvas.style.height = `${height}px`;
+    canvas.width = size * dpr;
+    canvas.height = size * dpr;
+    canvas.style.width = `${size}px`;
+    canvas.style.height = `${size}px`;
     ctx.scale(dpr, dpr);
 
     let angleY = 0;
@@ -201,15 +199,15 @@ export default function ENTIllustration({
     const render = (time: number) => {
       if (!ctx) return;
 
-      ctx.clearRect(0, 0, width, height);
+      ctx.clearRect(0, 0, size, size);
 
       ctx.save();
-      ctx.translate(width / 2, height / 2);
+      ctx.translate(size / 2, size / 2);
       ctx.rotate(angleY * 0.5);
-      ctx.translate(-width / 2, -height / 2);
+      ctx.translate(-size / 2, -size / 2);
 
-      const centerX = width / 2;
-      const centerY = height / 2;
+      const centerX = size / 2;
+      const centerY = size / 2;
 
       drawSoundWaves(ctx, centerX, centerY, 1, time);
       drawParticles(ctx, centerX, centerY, 1, time);
@@ -235,7 +233,6 @@ export default function ENTIllustration({
       if (!animate) return;
       const rect = canvas.getBoundingClientRect();
       const mouseX = (e.clientX - rect.left) / rect.width - 0.5;
-      const mouseY = (e.clientY - rect.top) / rect.height - 0.5;
       targetAngleY = mouseX * 0.3;
     };
 
@@ -245,7 +242,7 @@ export default function ENTIllustration({
       cancelAnimationFrame(animationId);
       canvas.removeEventListener("mousemove", handleMouseMove);
     };
-  }, [width, height, animate]);
+  }, [size, animate]);
 
   return (
     <canvas

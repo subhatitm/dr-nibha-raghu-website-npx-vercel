@@ -31,13 +31,6 @@ export default function ContactContent() {
     setTimeout(() => setStatus("idle"), 5000);
   };
 
-  const contactInfo = {
-    address: "Cytecare Hospital, International Airport Road, Venkatala, near Bagalur Cross, Hyderabad–Bengaluru Highway, Yelahanka, Bengaluru, Karnataka 560064",
-    phone: "099028 76872",
-    email: "appointments@drnibharaghu.com",
-    plusCode: "4J95+99 Bengaluru, Karnataka",
-  };
-
   return (
     <div className="min-h-screen">
       <section className="py-16 lg:py-24 relative" aria-labelledby="contact-heading">

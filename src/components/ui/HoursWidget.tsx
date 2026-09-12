@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 
 const weeklyHours = [
   { day: "Monday", open: "9:00 AM", close: "4:00 PM", closed: false },
@@ -12,38 +12,35 @@ const weeklyHours = [
   { day: "Sunday", open: "", close: "", closed: true },
 ];
 
-export default function HoursWidget({
+function getInitialState() {
+    if (typeof window === "undefined") return { currentDayIndex: 0, isOpenNow: false };
+    const now = new Date();
+    const dayIndex = now.getDay();
+    const adjustedIndex = dayIndex === 0 ? 6 : dayIndex - 1;
+    const hours = weeklyHours[adjustedIndex];
+    let isOpenNow = false;
+    if (!hours.closed) {
+      const [openHour] = hours.open.match(/(\d+):(\d+)\s*(AM|PM)/)!.slice(1, 2).map(Number);
+      const [closeHour] = hours.close.match(/(\d+):(\d+)\s*(AM|PM)/)!.slice(1, 2).map(Number);
+      const openPeriod = hours.open.includes("PM") ? 12 : 0;
+      const closePeriod = hours.close.includes("PM") ? 12 : 0;
+      const openTime = (openHour % 12) + openPeriod;
+      const closeTime = (closeHour % 12) + closePeriod;
+      const currentHour = now.getHours();
+      isOpenNow = currentHour >= openTime && currentHour < closeTime;
+    }
+    return { currentDayIndex: adjustedIndex, isOpenNow };
+  }
+
+  export default function HoursWidget({
   className = "",
   showFull = false,
 }: {
   className?: string;
   showFull?: boolean;
 }) {
-  const [currentDayIndex, setCurrentDayIndex] = useState(0);
-  const [isOpenNow, setIsOpenNow] = useState(false);
-
-  useEffect(() => {
-    const now = new Date();
-    const dayIndex = now.getDay(); // 0 = Sunday
-    const adjustedIndex = dayIndex === 0 ? 6 : dayIndex - 1; // Convert to Monday=0
-    setCurrentDayIndex(adjustedIndex);
-
-    const hours = weeklyHours[adjustedIndex];
-    if (!hours.closed) {
-      const [openHour, openMin] = hours.open.match(/(\d+):(\d+)\s*(AM|PM)/)!.slice(1, 3).map(Number);
-      const [closeHour, closeMin] = hours.close.match(/(\d+):(\d+)\s*(AM|PM)/)!.slice(1, 3).map(Number);
-      const openPeriod = hours.open.includes("PM") ? 12 : 0;
-      const closePeriod = hours.close.includes("PM") ? 12 : 0;
-      
-      const openTime = (openHour % 12) + openPeriod;
-      const closeTime = (closeHour % 12) + closePeriod;
-      const currentHour = now.getHours();
-      
-      setIsOpenNow(currentHour >= openTime && currentHour < closeTime);
-    } else {
-      setIsOpenNow(false);
-    }
-  }, []);
+  const [currentDayIndex] = useState(() => getInitialState().currentDayIndex);
+  const [isOpenNow] = useState(() => getInitialState().isOpenNow);
 
   const today = weeklyHours[currentDayIndex];
 

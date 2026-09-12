@@ -27,7 +27,8 @@ export default function Header() {
   }, []);
 
   useEffect(() => {
-    setIsMobileMenuOpen(false);
+    const timer = setTimeout(() => setIsMobileMenuOpen(false), 0);
+    return () => clearTimeout(timer);
   }, [pathname]);
 
   return (

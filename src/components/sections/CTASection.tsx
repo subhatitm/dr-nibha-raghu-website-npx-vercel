@@ -18,7 +18,7 @@ export default function CTASection() {
 
         <ScrollReveal delay={100} animation="slide-up">
           <p className="text-lg sm:text-xl text-white/90 mb-10 max-w-2xl mx-auto leading-relaxed">
-            Don't let ENT issues affect your quality of life. Book an appointment today for expert diagnosis and personalized treatment.
+            Don&apos;t let ENT issues affect your quality of life. Book an appointment today for expert diagnosis and personalized treatment.
           </p>
         </ScrollReveal>
 

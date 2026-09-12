@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 
 interface ServiceIconProps {
   type: "ear" | "sinus" | "throat" | "head-neck" | "hearing" | "voice";
@@ -19,7 +19,6 @@ const iconColors = {
 
 export default function ServiceIcon({ type, size = 80, className = "" }: ServiceIconProps) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
-  const [dimensions, setDimensions] = useState({ width: size, height: size });
   const colors = iconColors[type];
 
   useEffect(() => {
@@ -30,10 +29,10 @@ export default function ServiceIcon({ type, size = 80, className = "" }: Service
     if (!ctx) return;
 
     const dpr = window.devicePixelRatio || 1;
-    canvas.width = dimensions.width * dpr;
-    canvas.height = dimensions.height * dpr;
-    canvas.style.width = `${dimensions.width}px`;
-    canvas.style.height = `${dimensions.height}px`;
+    canvas.width = size * dpr;
+    canvas.height = size * dpr;
+    canvas.style.width = `${size}px`;
+    canvas.style.height = `${size}px`;
     ctx.scale(dpr, dpr);
 
     let time = 0;
@@ -72,7 +71,7 @@ export default function ServiceIcon({ type, size = 80, className = "" }: Service
       ctx.restore();
     };
 
-    const drawSinus = (ctx: CanvasRenderingContext2D, cx: number, cy: number, s: number, t: number) => {
+    const drawSinus = (ctx: CanvasRenderingContext2D, cx: number, cy: number, s: number) => {
       ctx.save();
       ctx.translate(cx, cy);
       ctx.scale(s, s);
@@ -110,7 +109,7 @@ export default function ServiceIcon({ type, size = 80, className = "" }: Service
       ctx.restore();
     };
 
-    const drawThroat = (ctx: CanvasRenderingContext2D, cx: number, cy: number, s: number, t: number) => {
+    const drawThroat = (ctx: CanvasRenderingContext2D, cx: number, cy: number, s: number) => {
       ctx.save();
       ctx.translate(cx, cy);
       ctx.scale(s, s);
@@ -140,7 +139,7 @@ export default function ServiceIcon({ type, size = 80, className = "" }: Service
       ctx.restore();
     };
 
-    const drawHeadNeck = (ctx: CanvasRenderingContext2D, cx: number, cy: number, s: number, t: number) => {
+    const drawHeadNeck = (ctx: CanvasRenderingContext2D, cx: number, cy: number, s: number) => {
       ctx.save();
       ctx.translate(cx, cy);
       ctx.scale(s, s);
@@ -261,12 +260,12 @@ export default function ServiceIcon({ type, size = 80, className = "" }: Service
       if (!ctx) return;
       time = timestamp;
 
-      ctx.clearRect(0, 0, dimensions.width, dimensions.height);
+      ctx.clearRect(0, 0, size, size);
 
       ctx.save();
-      ctx.translate(dimensions.width / 2, dimensions.height / 2);
+      ctx.translate(size / 2, size / 2);
 
-      const scale = Math.min(dimensions.width, dimensions.height) / 100;
+      const scale = size / 100;
       drawFunctions[type](ctx, 0, 0, scale, time);
 
       ctx.restore();
@@ -277,7 +276,7 @@ export default function ServiceIcon({ type, size = 80, className = "" }: Service
     animationId = requestAnimationFrame(render);
 
     return () => cancelAnimationFrame(animationId);
-  }, [dimensions, type, colors]);
+  }, [size, type, colors]);
 
   return (
     <canvas

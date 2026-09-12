@@ -1,6 +1,5 @@
 "use client";
 
-import { useState } from "react";
 import Link from "next/link";
 import ENTIllustration from "@/components/ui/ENTIllustration";
 import TrustBadge from "@/components/ui/TrustBadge";
@@ -8,8 +7,6 @@ import HoursWidget from "@/components/ui/HoursWidget";
 import ScrollReveal from "@/components/ui/ScrollReveal";
 
 export default function Hero() {
-  const [scrolled, setScrolled] = useState(false);
-
   return (
     <section
       className="relative min-h-screen flex items-center justify-center overflow-hidden pt-16 lg:pt-20"

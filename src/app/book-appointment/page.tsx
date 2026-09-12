@@ -4,7 +4,6 @@ import { useState } from "react";
 import Link from "next/link";
 import ScrollReveal from "@/components/ui/ScrollReveal";
 import TrustBadge from "@/components/ui/TrustBadge";
-import HoursWidget from "@/components/ui/HoursWidget";
 
 export default function BookAppointmentContent() {
   const [step, setStep] = useState<1 | 2 | 3>(1);
