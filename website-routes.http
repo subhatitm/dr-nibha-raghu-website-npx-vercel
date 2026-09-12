@@ -1,0 +1,141 @@
+# Dr. Nibha Raghu Website - HTTP Routes Reference
+# Base URL: Replace with your actual deployment URL
+@baseUrl = https://dr-nibha-raghu-website.vercel.app
+# @baseUrl = http://localhost:3000  # For local testing
+
+---
+
+### 📄 Static Pages (GET)
+
+#### Home Page
+GET {{baseUrl}}/
+
+#### About Dr. Nibha Raghu
+GET {{baseUrl}}/about
+
+#### Services
+GET {{baseUrl}}/services
+
+#### Patient Reviews
+GET {{baseUrl}}/reviews
+
+#### Contact & Location
+GET {{baseUrl}}/contact
+
+#### Book Appointment
+GET {{baseUrl}}/book-appointment
+
+---
+
+### 📋 Form Submissions (POST)
+# Note: These forms currently only simulate submission (no backend)
+# In production, you'd connect to a backend API or service like:
+# - Formspree, Netlify Forms, EmailJS, or custom API
+
+#### Contact Form (from /contact page)
+POST {{baseUrl}}/api/contact
+Content-Type: application/json
+
+{
+  "name": "John Doe",
+  "phone": "9876543210",
+  "email": "john@example.com",
+  "preferredDate": "2026-09-20",
+  "preferredTime": "10:00-11:00",
+  "concern": "sinus",
+  "message": "Chronic sinusitis for 6 months, need consultation"
+}
+
+#### Appointment Booking Form (from /book-appointment page)
+POST {{baseUrl}}/api/book-appointment
+Content-Type: application/json
+
+{
+  "patientType": "new",
+  "name": "Jane Smith",
+  "phone": "9876543210",
+  "email": "jane@example.com",
+  "dateOfBirth": "1990-05-15",
+  "gender": "female",
+  "preferredDate": "2026-09-22",
+  "preferredTime": "14:00-15:00",
+  "concern": "ear",
+  "symptoms": "Hearing loss in left ear for 2 weeks, ringing sensation",
+  "referredBy": "google",
+  "insurance": "Star Health Insurance"
+}
+
+---
+
+### 🔗 Direct Action Links (GET)
+
+#### Call Phone
+GET tel:09902876872
+
+#### WhatsApp Booking
+GET https://wa.me/919902876872?text=Hello%20Dr.%20Nibha%20Raghu%2C%20I%20would%20like%20to%20book%20an%20appointment.
+
+#### Google Maps Directions
+GET https://www.google.com/maps/dir//Cytecare+Hospital%2C+International+Airport+Road%2C+Venkatala%2C+Yelahanka%2C+Bengaluru%2C+Karnataka+560064
+
+#### Google Reviews
+GET https://www.google.com/search?q=Dr+Nibha+Raghu+Cytecare+Hospital+reviews
+
+---
+
+### 🗺️ Sitemap & SEO
+GET {{baseUrl}}/sitemap.xml
+GET {{baseUrl}}/robots.txt
+GET {{baseUrl}}/manifest.json
+
+---
+
+### 🧪 Local Development Testing
+
+# Start dev server:
+# npm run dev
+
+# Then test:
+GET http://localhost:3000/
+GET http://localhost:3000/about
+GET http://localhost:3000/services
+GET http://localhost:3000/reviews
+GET http://localhost:3000/contact
+GET http://localhost:3000/book-appointment
+
+# Build for production:
+# npm run build
+
+# Preview production build locally:
+# npm run start
+
+---
+
+### 📝 Notes
+
+1. **No real API endpoints** - Forms use client-side simulation only
+2. **To add real form handling**, create API routes in `src/app/api/`:
+   - `src/app/api/contact/route.ts`
+   - `src/app/api/book-appointment/route.ts`
+3. **Or use serverless functions** with Vercel/Netlify
+4. **All pages are statically generated** - fast, SEO-friendly
+5. **3D animations** run client-side via Canvas API
+
+---
+
+### 🔧 If Adding Backend Later
+
+Example API route structure:
+
+```typescript
+// src/app/api/contact/route.ts
+import { NextRequest, NextResponse } from 'next/server'
+
+export async function POST(request: NextRequest) {
+  const body = await request.json()
+  // Validate, send email, save to DB, etc.
+  return NextResponse.json({ success: true, message: 'Received' })
+}
+```
+
+Then update forms to POST to `/api/contact` instead of client-side simulation.
