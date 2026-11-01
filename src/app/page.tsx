@@ -1,6 +1,10 @@
 import { Metadata } from "next";
 import HomeClientWrapper from "@/components/HomeClientWrapper";
 
+// Force dynamic rendering - this page uses client-only 3D canvas
+export const dynamic = "force-dynamic";
+export const revalidate = 0;
+
 export const metadata: Metadata = {
   title: {
     default: "Dr. Nibha Raghu | ENT & Head-Neck Surgeon, Cytecare Hospitals Bengaluru",
