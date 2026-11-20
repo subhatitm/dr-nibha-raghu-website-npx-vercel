@@ -504,3 +504,50 @@
     z-index: 10;
   }
 }
+/* The page remains navigable while the optional background renderer starts. */
+:root { --color-accent-primary: var(--accent-primary); }
+@theme inline { --color-accent-primary: var(--accent-primary); }
+body { background: radial-gradient(ellipse at 80% 12%, #11392f, transparent 52rem) var(--bg-deep); }
+#canvas-container { pointer-events: none; touch-action: auto; height: 100dvh; }
+.clinic-header {
+  position: sticky;
+  top: 0;
+  z-index: var(--z-hud);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: .7rem clamp(1rem, 3vw, 3rem);
+  background: #031612f5;
+  border-bottom: 1px solid var(--glass-border);
+}
+.clinic-brand { display: inline-flex; gap: .65rem; align-items: center; font-weight: 700; color: var(--text-primary); }
+.clinic-brand small { display: block; color: var(--text-muted); font-weight: 500; font-size: .7rem; }
+.clinic-mark { border-radius: .6rem; background: var(--accent-primary); padding: .6rem; color: var(--bg-deep); }
+.clinic-header nav { display: flex; align-items: center; gap: .25rem; overflow-x: auto; }
+.clinic-header nav a { color: var(--text-secondary); white-space: nowrap; padding: .65rem; font-size: .875rem; }
+.clinic-header nav a[aria-current], .clinic-header nav a:hover { color: var(--accent-primary); }
+.clinic-header .clinic-book { font-size: .875rem; padding: .6rem 1rem; }
+.clinic-progress { position: absolute; inset: auto 0 -1px; height: 2px; background: var(--accent-primary); transform-origin: left; }
+.clinic-section { padding-block: clamp(3rem, 7vw, 6rem); scroll-margin-top: 4.75rem; }
+#home { min-height: calc(100svh - 4.75rem); }
+.clinic-section .wrap { max-width: 100%; }
+.clinic-contact, #specialties { padding-inline: clamp(1rem, 4vw, 3rem); }
+.clinic-contact { background: var(--bg-mid); }
+.clinic-contact .wrap, #specialties .wrap { max-width: 64rem; }
+.specialty-details > summary { display: flex; align-items: center; justify-content: space-between; gap: 1rem; padding: clamp(1rem, 3vw, 2rem); list-style: none; cursor: pointer; }
+.specialty-details > summary::-webkit-details-marker { display: none; }
+.specialty-details > summary::after { content: "+"; color: var(--accent-primary); font-size: 1.6rem; }
+.specialty-details[open] > summary::after { content: "−"; }
+.specialty-details > summary:hover strong { color: var(--accent-primary); }
+.specialty-panels { display: grid; grid-template-columns: 1fr 1fr; border-top: 1px solid var(--glass-border); }
+.specialty-panels > div { padding: clamp(1rem, 3vw, 2rem); }
+.specialty-panels > div:first-child { background: #563b2e44; }
+@media (max-width: 800px) {
+  .clinic-header { flex-wrap: wrap; gap: .3rem .6rem; padding-block: .45rem 0; }
+  .clinic-header nav { order: 3; width: 100%; }
+  .clinic-header nav a { padding: .65rem .5rem; }
+  .clinic-section { scroll-margin-top: 6.75rem; }
+  .specialty-panels { grid-template-columns: 1fr; }
+  .clinic-section { overflow-wrap: anywhere; }
+}
