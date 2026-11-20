@@ -1,3 +1,4 @@
+import contact from "../../data/contact.json";
 import type { Metadata, Viewport } from "next";
 import { Inter, Space_Grotesk } from "next/font/google";
 import "./globals.css";
@@ -87,10 +88,10 @@ const structuredData = {
   url: siteUrl.href,
   address: {
     "@type": "PostalAddress",
-    streetAddress: "Cytecare Cancer Hospital, Near Bagalur Cross, Yelahanka",
-    addressLocality: "Bengaluru",
-    addressRegion: "Karnataka",
-    postalCode: "560064",
+    streetAddress: `${contact.clinic}, ${contact.street}`,
+    addressLocality: contact.city,
+    addressRegion: contact.region,
+    postalCode: contact.postcode,
     addressCountry: "IN",
   },
   geo: {
@@ -98,7 +99,7 @@ const structuredData = {
     latitude: 13.1067,
     longitude: 77.5929,
   },
-  telephone: "+91-80-2217-6767",
+  telephone: contact.phone,
   openingHoursSpecification: [
     {
       "@type": "OpeningHoursSpecification",

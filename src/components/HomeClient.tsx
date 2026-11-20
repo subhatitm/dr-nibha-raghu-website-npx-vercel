@@ -2,6 +2,7 @@
 
 import dynamic from "next/dynamic";
 import { Component, useState, useSyncExternalStore, type ReactNode } from "react";
+import type { Department } from "@/lib/clinic";
 import DioramaSection from "./sections/DioramaSection";
 import HudOverlay from "@/components/canvas/HudOverlay";
 import { useScrollProgress } from "@/hooks/useScrollProgress";
@@ -49,7 +50,7 @@ class SceneBoundary extends Component<{ children: ReactNode }, { failed: boolean
   }
 }
 
-export default function HomeClient({ hero, children }: { hero: ReactNode; children: ReactNode }) {
+export default function HomeClient({ hero, children, departments }: { hero: ReactNode; children: ReactNode; departments: Department[] }) {
   const [department, setDepartment] = useState(0);
   const { progress, currentScene } = useScrollProgress();
   const showScene = useSyncExternalStore(subscribeToPreference, canShowScene, () => false);
@@ -59,14 +60,14 @@ export default function HomeClient({ hero, children }: { hero: ReactNode; childr
       {showScene && (
         <SceneBoundary>
           <div id="canvas-container" aria-hidden="true">
-            <ExperienceCanvas department={department} progress={progress} currentScene={currentScene} />
+            <ExperienceCanvas departments={departments} department={department} progress={progress} currentScene={currentScene} />
           </div>
         </SceneBoundary>
       )}
       <HudOverlay progress={progress} currentScene={currentScene} />
       <main id="main-content" className="relative z-10">
         {hero}
-        <DioramaSection selected={department} onSelect={setDepartment} />
+        <DioramaSection departments={departments} selected={department} onSelect={setDepartment} />
         {children}
       </main>
     </>

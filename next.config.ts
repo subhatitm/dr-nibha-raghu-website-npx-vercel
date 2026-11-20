@@ -1,6 +1,7 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
+  outputFileTracingIncludes: { "/*": ["./data/generated/clinic.sqlite"] },
   // Security Headers
   async headers() {
     return [

@@ -1,36 +1,25 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Dr. Nibha Raghu’s clinic website
 
-## Getting Started
+The mobile and desktop homepage presents an interactive 3D clinic. Next.js server components and HTTP route handlers use the same SQLite catalog for department details, specialty search and clinic contact information. Booking links lead to Practo and the hospital telephone line.
 
-First, run the development server:
+## Local development
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+Use Node.js 24. Run `npm ci` and `npm run dev`. For a production build, run `npm run build` followed by `npm start`.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Updating the directory
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Edit the public clinic records in [departments.json](data/departments.json), [specialties.json](data/specialties.json) or [contact.json](data/contact.json). Keep department IDs aligned with the five wings of the 3D model. Restart the development server after changing the data. Publishing an edit to the production branch regenerates the catalog on Vercel.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+The build indexes specialties for full-text search and packages the SQLite database with the Node.js functions. The deployed catalog is read-only. Changes persist in the versioned source records. Appointment scheduling is handled by the existing booking provider.
 
-## Learn More
+## Public API
 
-To learn more about Next.js, take a look at the following resources:
+| Request | Result |
+| --- | --- |
+| `GET /api/departments` | Ordered clinic departments and their model positions |
+| `GET /api/specialties` | All specialties with stages, highlights and display details |
+| `GET /api/specialties?q=sinus` | Matching specialties, count and query |
+| `GET /api/contact` | Public booking and hospital contact details |
+| `GET /api/contact?format=vcard` | Downloadable contact card |
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+The specialty form also accepts a normal GET request at `/?q=sinus#specialties`. Searches accept one query up to 80 characters. An empty query lists the full directory.

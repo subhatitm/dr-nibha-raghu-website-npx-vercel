@@ -1,20 +1,23 @@
-export default function FinaleBookingSection() {
+import type { ClinicContact } from "@/lib/clinic";
+
+export default function FinaleBookingSection({ contact }: { contact: ClinicContact }) {
   return (
     <section id="contact" className="clinic-section clinic-contact" aria-labelledby="finale-heading">
       <div className="wrap max-w-4xl">
-        <p className="pill">Cytecare Hospitals · Yelahanka</p>
+        <p className="pill">{contact.clinic} · {contact.area}</p>
         <h2 id="finale-heading" className="font-display font-bold mt-5 mb-5">Book a consultation</h2>
         <p className="lede mb-8">
           Choose a clinic appointment on Dr. Nibha Raghu’s booking page or call Cytecare
           to confirm availability, fees and visiting hours.
         </p>
         <div className="flex flex-wrap gap-4">
-          <a className="btn btn-primary" href="https://www.practo.com/bangalore/doctor/nibha-raghu-ear-nose-throat-ent-specialist?practice_id=1142571">Book on Practo</a>
-          <a className="btn btn-glass" href="tel:+918022176767">Call 080 2217 6767</a>
+          <a className="btn btn-primary" href={contact.bookingUrl}>Book on Practo</a>
+          <a className="btn btn-glass" href={`tel:${contact.phone}`}>Call {contact.phoneDisplay}</a>
+          <a className="btn btn-glass" href="/api/contact?format=vcard" download>Save clinic contact</a>
         </div>
         <address className="glass card mt-10 not-italic">
-          <strong>Cytecare Hospitals</strong><br />
-          Near Bagalur Cross, Yelahanka, Bengaluru 560064
+          <strong>{contact.clinic}</strong><br />
+          {contact.street}, {contact.city} {contact.postcode}
         </address>
       </div>
     </section>

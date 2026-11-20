@@ -572,3 +572,13 @@ body { background: radial-gradient(ellipse at 80% 12%, #11392f, transparent 52re
   .clinic-hero-details { display: flex; flex-direction: column-reverse; gap: 1rem; }
   .clinic-hero-details p { margin: 0; }
 }
+
+.specialty-search { margin-block: 1.5rem; }
+.specialty-search label { display: block; margin-bottom: .5rem; font-weight: 600; }
+.specialty-search > div { display: flex; align-items: center; flex-wrap: wrap; gap: .6rem; }
+.specialty-search input {
+  flex: 1 1 14rem; min-width: 0; max-width: 32rem; min-height: 3rem;
+  padding: .65rem 1rem; border-radius: .75rem; color: var(--text-primary);
+  border: 1px solid #63867a; background: var(--bg-mid); font: inherit;
+}
+.specialty-search input::placeholder { color: #a6bfb4; }

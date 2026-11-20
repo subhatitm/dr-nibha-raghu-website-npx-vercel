@@ -1,99 +1,28 @@
-const specialties = [
-  {
-    id: "fess",
-    title: "Functional Endoscopic Sinus Surgery (FESS)",
-    shortTitle: "FESS",
-    description: "Image-guided, minimally invasive clearance of chronic sinus disease and nasal polyps with faster recovery and preserved mucosa.",
-    stages: [
-      { name: "Diagnostic Scan", icon: "📷", desc: "CT/MRI with 3D reconstruction" },
-      { name: "3D Endoscopic Mapping", icon: "🗺️", desc: "Navigation-guided surgical planning" },
-      { name: "Minimally Invasive Procedure", icon: "🔬", desc: "Endoscopic microdebrider & balloon sinuplasty" },
-      { name: "Organ Preservation", icon: "🛡️", desc: "Mucosal sparing techniques" },
-      { name: "Post-Op Rehabilitation", icon: "🏥", desc: "Saline irrigation & steroid sprays" },
-      { name: "Follow-Up Care", icon: "📅", desc: "Endoscopic surveillance at 6/12 weeks" },
-    ],
-    highlights: ["Zero external incisions", "Same-day discharge", "Endoscopic approach"],
-    duration: "45–90 min",
-    recovery: "1–2 weeks",
-  },
-  {
-    id: "oncology",
-    title: "Head & Neck Oncology & Tumor Excision",
-    shortTitle: "Oncology",
-    description: "Surgical management of oral cavity, oropharyngeal, laryngeal, salivary and thyroid tumours with multidisciplinary planning and reconstruction.",
-    stages: [
-      { name: "Diagnostic Scan", icon: "📷", desc: "PET-CT, MRI, ultrasound-guided FNAC" },
-      { name: "3D Endoscopic Mapping", icon: "🗺️", desc: "Tumor board & virtual surgical planning" },
-      { name: "Minimally Invasive Procedure", icon: "🔬", desc: "Transoral robotic (TORS) / endoscopic resection" },
-      { name: "Organ Preservation", icon: "🛡️", desc: "Nerve/vessel sparing & sentinel node biopsy" },
-      { name: "Post-Op Rehabilitation", icon: "🏥", desc: "Speech/swallow therapy & nutrition support" },
-      { name: "Follow-Up Care", icon: "📅", desc: "Multidisciplinary surveillance Q3–6 months" },
-    ],
-    highlights: ["Multidisciplinary tumor board", "Organ preservation focus", "Free flap reconstruction", "Adjuvant therapy coordination"],
-    duration: "2–6 hours",
-    recovery: "2–6 weeks",
-  },
-  {
-    id: "septoplasty",
-    title: "Septoplasty, Tonsillectomy & Airway Care",
-    shortTitle: "Airway",
-    description: "Correction of deviated septum, turbinate reduction, and adeno-tonsillectomy for obstructive sleep apnea and chronic airway obstruction.",
-    stages: [
-      { name: "Diagnostic Scan", icon: "📷", desc: "Nasendoscopy, sleep study, CT airway" },
-      { name: "3D Endoscopic Mapping", icon: "🗺️", desc: "Airway dynamics analysis & planning" },
-      { name: "Minimally Invasive Procedure", icon: "🔬", desc: "Powered intracapsular tonsillectomy, septoplasty" },
-      { name: "Organ Preservation", icon: "🛡️", desc: "Mucosal flap preservation, coblation technology" },
-      { name: "Post-Op Rehabilitation", icon: "🏥", desc: "Pain protocol, humidification, activity guidance" },
-      { name: "Follow-Up Care", icon: "📅", desc: "Airway reassessment at 2/6 weeks" },
-    ],
-    highlights: ["Coblation/Plasma technology", "Intracapsular technique", "Pediatric expertise", "Sleep apnea resolution"],
-    duration: "30–60 min",
-    recovery: "7–10 days",
-  },
-  {
-    id: "laryngoscopy",
-    title: "Diagnostic Laryngoscopy & Bronchoscopy",
-    shortTitle: "Voice/Airway",
-    description: "Flexible and rigid laryngoscopy, bronchoscopy, and stroboscopy for hoarseness, swallowing difficulty, and airway narrowing evaluation.",
-    stages: [
-      { name: "Diagnostic Scan", icon: "📷", desc: "Videostroboscopy, FEES, CT neck/chest" },
-      { name: "3D Endoscopic Mapping", icon: "🗺️", desc: "Vocal fold vibration analysis & airway mapping" },
-      { name: "Minimally Invasive Procedure", icon: "🔬", desc: "Micro-laryngeal surgery, dilation, laser" },
-      { name: "Organ Preservation", icon: "🛡️", desc: "Phonomicrosurgery principles, mucosal sparing" },
-      { name: "Post-Op Rehabilitation", icon: "🏥", desc: "Voice therapy, silent period, reflux management" },
-      { name: "Follow-Up Care", icon: "📅", desc: "Stroboscopic reassessment at 4/12 weeks" },
-    ],
-    highlights: ["High-definition stroboscopy", "In-office procedures", "Voice preservation", "Swallowing restoration"],
-    duration: "15–45 min",
-    recovery: "1–3 days",
-  },
-  {
-    id: "tympanoplasty",
-    title: "Tympanoplasty & Micro-Ear Reconstruction",
-    shortTitle: "Micro-Ear",
-    description: "Repair of perforated eardrums, ossiculoplasty, mastoidectomy, and stapedotomy for conductive hearing loss and chronic ear disease.",
-    stages: [
-      { name: "Diagnostic Scan", icon: "📷", desc: "Otoscopy, audiometry, CT temporal bone" },
-      { name: "3D Endoscopic Mapping", icon: "🗺️", desc: "Middle ear 3D reconstruction & planning" },
-      { name: "Minimally Invasive Procedure", icon: "🔬", desc: "Endoscopic transcanal, microscope-assisted" },
-      { name: "Organ Preservation", icon: "🛡️", desc: "Chorda tympani & facial nerve monitoring" },
-      { name: "Post-Op Rehabilitation", icon: "🏥", desc: "Water precautions, hearing rehab, packing removal" },
-      { name: "Follow-Up Care", icon: "📅", desc: "Audiometric assessment at 6/12 weeks" },
-    ],
-    highlights: ["Endoscopic ear surgery", "Hearing restoration focus", "Facial nerve monitoring", "Cartilage/perichondrium grafts"],
-    duration: "60–120 min",
-    recovery: "2–4 weeks",
-  },
-];
+import Form from "next/form";
+import Link from "next/link";
+import { maxQueryLength, type Specialty } from "@/lib/clinic";
 
-export default function SpecialtiesShowcaseSection() {
+export default function SpecialtiesShowcaseSection({ items, query, error }: { items: Specialty[]; query: string; error?: string }) {
   return (
     <section id="specialties" className="clinic-section" aria-labelledby="specialties-heading">
       <div className="wrap max-w-5xl">
         <p className="pill">Core clinical specialties</p>
         <h2 id="specialties-heading" className="gradient-text-emerald my-5 font-bold">Interactive Specialty Explorer</h2>
         <p className="lede mb-8">Select a specialty to explore treatment stages and clinical highlights.</p>
-        {specialties.map(specialty => (
+        <Form action="/#specialties" role="search" aria-label="Find a specialty" className="specialty-search">
+          <label htmlFor="specialty-query">Search specialties</label>
+          <div>
+            <input key={query} id="specialty-query" type="search" name="q" defaultValue={query}
+              maxLength={maxQueryLength} placeholder="e.g. sinus, ear, voice" />
+            <button type="submit" className="btn btn-primary">Search</button>
+            {(query || error) && <Link href="/#specialties" className="btn btn-glass">Clear</Link>}
+          </div>
+        </Form>
+        {error && <p role="alert" className="mb-6">{error}</p>}
+        {query && <p role="status" className="mb-6">{items.length
+          ? `${items.length} ${items.length === 1 ? "specialty" : "specialties"} matching “${query}”.`
+          : `No specialties matched “${query}”. Try another term or clear the search.`}</p>}
+        {items.map(specialty => (
           <details key={specialty.id} name="specialty" className="specialty-details glass mb-4">
             <summary>
               <span>

@@ -3,10 +3,11 @@
 import Link from "next/link";
 
 import ClinicModel from "../canvas/ClinicModel";
-import { departments } from "../departments";
+import type { Department } from "@/lib/clinic";
 
 
-export default function DioramaSection({ selected, onSelect }: {
+export default function DioramaSection({ departments, selected, onSelect }: {
+  departments: Department[];
   selected: number;
   onSelect: (index: number) => void;
 }) {

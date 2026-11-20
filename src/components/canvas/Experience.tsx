@@ -12,7 +12,7 @@ import {
   ChromaticAberration,
 } from "@react-three/postprocessing";
 import * as THREE from "three";
-import { departments } from "../departments";
+import type { Department } from "@/lib/clinic";
 
 // ============================================
 // TYPES & CONSTANTS
@@ -141,7 +141,7 @@ function ParticleHelix({ progress }: { progress: number }) {
 }
 
 // --- Hospital Diorama (Scene 2) ---
-function HospitalDiorama({ activeDepartment }: { activeDepartment: number }) {
+function HospitalDiorama({ activeDepartment, departments }: { activeDepartment: number; departments: Department[] }) {
   const groupRef = useRef<THREE.Group>(null);
 
   const { x, z } = departments[activeDepartment].position;
@@ -415,12 +415,13 @@ function CameraController({ progress }: { progress: number }) {
 }
 
 interface ExperienceCanvasProps {
+  departments: Department[];
   progress: number;
   currentScene: number;
   department: number;
 }
 
-export function ExperienceCanvas({ progress, currentScene, department }: ExperienceCanvasProps) {
+export function ExperienceCanvas({ progress, currentScene, department, departments }: ExperienceCanvasProps) {
 
   return (
     <Canvas
@@ -487,7 +488,7 @@ export function ExperienceCanvas({ progress, currentScene, department }: Experie
       )}
 
       {/* Hospital Diorama - Scene 2 */}
-      {currentScene === 2 && <HospitalDiorama activeDepartment={department} />}
+      {currentScene === 2 && <HospitalDiorama departments={departments} activeDepartment={department} />}
 
       {/* Contact shadows for grounding */}
       <ContactShadows
