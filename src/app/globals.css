@@ -551,3 +551,24 @@ body { background: radial-gradient(ellipse at 80% 12%, #11392f, transparent 52re
   .specialty-panels { grid-template-columns: 1fr; }
   .clinic-section { overflow-wrap: anywhere; }
 }
+
+.clinic-hero-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.08fr) minmax(0, 1fr);
+  grid-template-areas: "intro model" "details model" "stats stats";
+  gap: 1.4rem clamp(1.25rem, 4vw, 4rem);
+  align-items: center;
+}
+.clinic-hero-intro { grid-area: intro; align-self: end; }
+.clinic-hero-intro h1 { margin: 1.1rem 0 0; line-height: 1.04; font-size: clamp(2.3rem, 4.6vw, 4.6rem); }
+.clinic-hero-model { grid-area: model; min-width: 0; }
+.clinic-hero-details { grid-area: details; align-self: start; }
+.clinic-hero-stats { grid-area: stats; margin-top: .75rem; }
+.clinic-facility-model { width: min(100%, 44rem); margin-inline: auto; }
+@media (max-width: 800px) {
+  #home { padding-block: 1.5rem 3rem; }
+  .clinic-hero-grid { grid-template-columns: minmax(0, 1fr); grid-template-areas: "intro" "model" "details" "stats"; gap: 1rem; }
+  .clinic-hero-intro h1 { font-size: clamp(2rem, 6.4vw, 3rem); margin-top: .7rem; }
+  .clinic-hero-details { display: flex; flex-direction: column-reverse; gap: 1rem; }
+  .clinic-hero-details p { margin: 0; }
+}

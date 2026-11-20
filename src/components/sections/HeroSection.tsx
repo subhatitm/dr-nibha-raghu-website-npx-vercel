@@ -1,4 +1,5 @@
 import Link from "next/link";
+import ClinicModel from "../canvas/ClinicModel";
 
 const stats = [
   { value: "16+", label: "Years of Overall Experience" },
@@ -13,52 +14,27 @@ export default function HeroSection() {
       className="clinic-section relative min-h-screen flex items-center justify-start px-6 lg:px-12"
       aria-labelledby="hero-heading"
     >
-      <div className="wrap max-w-5xl">
-        <div
-          className="mb-10"
-        >
-          <span className="pill inline-block" style={{ animationDelay: "0.3s" }}>
-            <span className="w-2 h-2 rounded-full bg-accent-primary animate-pulse" aria-hidden="true" />
-            Yelahanka, Bengaluru · Cytecare Hospitals
-          </span>
+      <div className="wrap clinic-hero-grid">
+        <div className="clinic-hero-intro">
+          <span className="pill">Yelahanka, Bengaluru · Cytecare Hospitals</span>
+          <h1 id="hero-heading" className="font-display font-bold text-text-primary tracking-tight">
+            Precision care that restores{" "}
+            <span className="gradient-text-emerald">voice, breathing &amp; life.</span>
+          </h1>
         </div>
-
-        <h1
-          id="hero-heading"
-          className="font-display text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-bold text-text-primary mb-8 leading-[1.05] tracking-tight"
-          style={{ letterSpacing: "-0.03em" }}
-        >
-          Precision care that restores{" "}
-          <span className="gradient-text-emerald">voice, breathing & life.</span>
-        </h1>
-
-        <div
-          className="mb-7"
-        >
-          <p className="lede text-text-secondary max-w-2xl">
-            Comprehensive Ear, Nose, Throat (ENT) & Head-Neck Oncology care in Bengaluru.
+        <div className="clinic-hero-model"><ClinicModel /></div>
+        <div className="clinic-hero-details">
+          <p className="lede text-text-secondary mb-6">
+            Comprehensive Ear, Nose, Throat (ENT) &amp; Head-Neck Oncology care in Bengaluru.
             Dr. Nibha Raghu combines clinical experience with
             minimally invasive endoscopic precision and evidence-based oncology protocols.
           </p>
+          <div className="flex flex-wrap items-center gap-3">
+            <Link href="#contact" className="btn btn-primary">Book Appointment</Link>
+            <Link href="#specialties" className="btn btn-glass">Explore Specialties</Link>
+          </div>
         </div>
-
-        <div
-          className="flex flex-col sm:flex-row items-center sm:items-start justify-center sm:justify-start gap-4"
-        >
-          <Link href="#contact" className="btn btn-primary w-full sm:w-auto">
-            Book Appointment
-          </Link>
-          <Link href="#specialties" className="btn btn-glass w-full sm:w-auto">
-            Explore Specialties
-          </Link>
-        </div>
-
-        {/* Floating Stats Preview */}
-        <div
-          className="mt-10 grid grid-cols-2 md:grid-cols-3 gap-4"
-          role="list"
-          aria-label="Key statistics"
-        >
+        <div className="clinic-hero-stats grid grid-cols-2 md:grid-cols-3 gap-4" role="list" aria-label="Key statistics">
           {stats.map((stat) => (
             <div
               key={stat.label}

@@ -1,0 +1,107 @@
+.frame {
+  position: relative;
+  container-type: inline-size;
+  width: 100%;
+  overflow: hidden;
+  border: 1px solid #496d61;
+  border-radius: 1.25rem;
+  background: radial-gradient(ellipse at 55% 34%, #28594d 0, #133e34 42%, #08251f 82%);
+  box-shadow: 0 1.1rem 3rem -2rem #000;
+}
+.viewport {
+  position: relative;
+  height: clamp(13rem, 69cqw, 27rem);
+  touch-action: pan-y pinch-zoom;
+  cursor: grab;
+  user-select: none;
+}
+.viewport:active { cursor: grabbing; }
+.viewport::before {
+  content: "";
+  position: absolute;
+  inset: 67% 13% 6%;
+  background: radial-gradient(ellipse, #010f0bc9, transparent 68%);
+}
+.camera {
+  position: absolute;
+  inset: 0;
+  font-size: clamp(.66px, .305cqw, 1.86px);
+  perspective: 880em;
+  perspective-origin: 50% 50%;
+}
+.tilt, .orbit, .manual, .assembly, .block {
+  position: absolute;
+  width: 0;
+  height: 0;
+  transform-style: preserve-3d;
+}
+.tilt { left: 50%; top: 62%; transform: rotateX(-23deg); }
+.orbit { animation: clinic-orbit 32s linear infinite; transform: rotateY(-30deg); }
+@keyframes clinic-orbit {
+  from { transform: rotateY(-30deg); }
+  to { transform: rotateY(330deg); }
+}
+.block { --wall: #b9cfc1; --side: #78998c; --cap: #f6eed3; }
+.block i {
+  position: absolute;
+  display: block;
+  left: 0;
+  top: 0;
+  width: var(--w);
+  height: var(--h);
+  margin-left: calc(-.5 * var(--w));
+  margin-top: calc(-.5 * var(--h));
+  background: var(--wall);
+  backface-visibility: hidden;
+}
+.block [data-face="front"] { transform: translateZ(calc(.5 * var(--d))); }
+.block [data-face="back"] { transform: rotateY(180deg) translateZ(calc(.5 * var(--d))); }
+.block [data-face="right"], .block [data-face="left"] {
+  width: var(--d);
+  margin-left: calc(-.5 * var(--d));
+  background-color: var(--side);
+  transform: rotateY(90deg) translateZ(calc(.5 * var(--w)));
+}
+.block [data-face="left"] { transform: rotateY(-90deg) translateZ(calc(.5 * var(--w))); }
+.block [data-face="top"] {
+  height: var(--d);
+  margin-top: calc(-.5 * var(--d));
+  background: var(--cap);
+  transform: rotateX(90deg) translateZ(calc(.5 * var(--h)));
+}
+.block[data-material="glass"] {
+  --wall: #296a6e; --side: #204e53; --cap: #c2d7cc; --mullion: #b6ccc0;
+}
+.block[data-material="glass"] i:not([data-face="top"]) {
+  background-image: repeating-linear-gradient(0deg, var(--mullion) 0 2.8em, transparent 2.8em 11em),
+    repeating-linear-gradient(90deg, #c3d5c47d 0 1em, transparent 1em 9em),
+    linear-gradient(125deg, #a8e6df77, transparent 62%);
+}
+.block[data-highlighted] { --wall: #267e69; --side: #1a604d; --mullion: #92ffd2; }
+.block[data-material="tower"] { --wall: #d77b62; --side: #aa5746; --cap: #f4b08f; }
+.block[data-material="tower"] [data-face="front"]::after,
+.block[data-material="tower"] [data-face="back"]::after {
+  content: ""; position: absolute; top: 8em; left: 6em; width: 13em; height: 13em;
+  background: #fff0cb; clip-path: polygon(35% 0,65% 0,65% 35%,100% 35%,100% 65%,65% 65%,65% 100%,35% 100%,35% 65%,0 65%,0 35%,35% 35%);
+}
+.block[data-material="plinth"] { --wall: #28534a; --side: #19443c; --cap: #86b3a0; }
+.block[data-material="terrace"] { --wall: #b4af91; --side: #859782; --cap: #c7c7a9; }
+.block[data-material="terrace"] [data-face="top"] {
+  background: linear-gradient(90deg, transparent 44%, #ece2c3 44% 56%, transparent 56%), var(--cap);
+}
+.block[data-material="roof"] { --wall: #acb3a0; --side: #879b8d; --cap: #efe3c7; }
+.block[data-material="tree"] { --wall: #588f68; --side: #38765b; --cap: #93bd85; }
+.block[data-material="trunk"] { --wall: #845f48; --side: #614a3b; }
+.caption {
+  display: flex; align-items: center; justify-content: space-between; gap: .5rem;
+  padding: .25rem 1rem .65rem; color: #bed6ca; font-size: .875rem;
+}
+.caption button {
+  min-height: 2.75rem; padding: .35rem .8rem; border: 1px solid #718e80;
+  border-radius: 2rem; font: inherit; color: #eff9ef; cursor: pointer; background: #153c33;
+}
+.caption button:hover { background: #235446; }
+/* A visitor can explicitly start the paused model with reduced motion enabled. */
+@media (prefers-reduced-motion: reduce) {
+  .orbit { animation-duration: 32s !important; animation-iteration-count: infinite !important; }
+}

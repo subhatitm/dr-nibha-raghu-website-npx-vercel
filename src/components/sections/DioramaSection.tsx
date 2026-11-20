@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 
+import ClinicModel from "../canvas/ClinicModel";
 import { departments } from "../departments";
 
 
@@ -36,7 +37,7 @@ export default function DioramaSection({ selected, onSelect }: {
             Explore Our Surgical Center
           </h2>
           <p className="lede text-text-secondary max-w-2xl mx-auto">
-            Select a department to see its facilities and location on the illustrated map.
+            Select a department to highlight its wing in the 3D clinic illustration.
           </p>
         </div>
 
@@ -69,55 +70,8 @@ export default function DioramaSection({ selected, onSelect }: {
           ))}
         </div>
 
-        {/* 3D Diorama Viewport */}
-        <div
-          className="relative"
-        >
-          <div
-            className="clinic-map rounded-2xl"
-            style={{
-              background: "linear-gradient(135deg, #342821 0%, #40312b 50%, #392d29 100%)",
-              border: "1px solid rgba(223, 142, 123, 0.2)",
-              boxShadow: "0 20px 60px -20px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.1)",
-            }}
-          >
-            <div className="relative w-full flex flex-col items-center justify-center gap-4 p-5 md:p-8">
-              <div className="text-center p-8">
-                <div className="text-6xl mb-4">{activeDepartment.icon}</div>
-                <h3 className="font-display text-2xl font-bold text-text-primary mb-2">
-                  {activeDepartment.name}
-                </h3>
-                <p className="text-text-muted max-w-md mx-auto">
-                  {activeDepartment.description}
-                </p>
-                <div className="mt-6 flex items-center justify-center gap-4 text-text-dim text-sm">
-                  <span>📍 Position: {activeDepartment.position.x === 0 ? "Central" : activeDepartment.position.x > 0 ? "East" : "West"} Wing</span>
-                  <span>•</span>
-                  <span>{activeDepartment.position.z > 0 ? "North" : "South"} Block</span>
-                </div>
-              </div>
-
-              {/* Mini map indicator */}
-              <div className="glass p-2 rounded-lg" style={{ minWidth: "120px" }}>
-                <div className="text-xs text-text-muted mb-1">DIORAMA MAP</div>
-                <div className="relative w-24 h-24 rounded-lg" style={{ background: "rgba(0,0,0,0.2)" }}>
-                  {departments.map((d) => (
-                        <div
-                          key={d.id}
-                          className="absolute w-2 h-2 rounded-full transition-all duration-300"
-                          style={{
-                            left: `${50 + d.position.x * 3}%`,
-                            top: `${50 - d.position.z * 3}%`,
-                            transform: activeDept === d.id ? "translate(-50%, -50%) scale(1.5)" : "translate(-50%, -50%)",
-                            background: activeDept === d.id ? "var(--warm-accent)" : "rgba(255,255,255,0.5)",
-                            boxShadow: activeDept === d.id ? "0 0 8px var(--warm-accent)" : "none",
-                          }}
-                        />
-                      ))}
-                </div>
-              </div>
-            </div>
-          </div>
+        <div className="clinic-facility-model">
+          <ClinicModel selected={activeDept} />
         </div>
 
         {/* Department Detail Panel */}
